@@ -1,0 +1,32 @@
+<h1>carrito page</h1>
+
+<div>
+    <li>Id del carrito: {{getCart._id}}</li>
+      <br>
+        <li>products:</li>
+  {{#each detailCart}}
+    <ul>
+      <li>product: {{design.title}}</li>
+        <ul>
+              <li>_id: {{this.design._id}}</li>
+              <li>code: {{design.code}}</li>
+              <li>title: {{design.title}}</li>
+              <li>description: {{design.description}}</li>
+              <li>price: {{design.price}}</li>
+              <li>Shops:</li>
+              <ul>
+                {{#each design.shops}}
+                    <li>{{this.[]}}</li>
+                {{/each}}
+              </ul>
+              <li>stock: {{design.stock}}</li>
+              <li>status: {{design.status}}</li>
+              <li>category: {{design.category}}</li>
+            <li>quantity: {{quantity}}</li>
+            </ul>
+        </ul>
+      
+    </ul>
+  {{/each}}
+  <button onclick="purchaseCart(`{{getCart._id}}`)">purchase cart</button>
+</div>

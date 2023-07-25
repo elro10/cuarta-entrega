@@ -1,0 +1,186 @@
+paths:
+  /api/designs/:
+    get:
+      summary: Obtener todos los diseños
+      tags:
+        - designs
+      responses:
+        "200":
+          description: los diseños se cargan correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/designs"
+        "500":
+          description: Error del servidor
+    post:
+      summary: agregar diseño SE NECESITA JWT
+      tags:
+        - designs
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema:
+              $ref: "#components/requestBodies/addDesign"
+      responses:
+        "200":
+          description: el diseño se agrega correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: "#components/schemas/design"
+        "500":
+          description: Error del servidor
+    delete:
+      summary: eliminar un diseño por el Id
+      tags:
+        - designs
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema:
+              $ref: "#components/requestBodies/deleteDesign"
+      responses:
+        "200":
+          description: el diseño se borra
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: "#components/schemas/design"
+                
+
+  /api/designs/{id}:
+    get:
+      summary: Obtener un diseño por el ID
+      tags:
+       - designs
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: id es el Id del diseño a buscar
+        schema:
+          $type: string
+      responses:
+        "200":
+          description: se muestra el diseño solicitado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: "#components/schemas/design"
+        "500":
+          description: Error del servidor
+
+components:
+  schemas:
+    design:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id del diseño
+        code:
+          type: Number
+          description: Codigo personal del diseño
+        title:
+          type: string
+          description: Titulo del diseño
+        description:
+          type: string
+          description: descripcion del diseño
+        category:
+          type: string
+          description: categoria del diseño
+        price:
+          type: Number
+          description: precio diseño
+        stock:
+          type: Number
+          description: stock disponible del diseño
+        shops:
+          type: string
+          description: Links a las tiendas del diseño
+        photos:
+          type: string
+          description: links a imagenes
+        owner:
+          type: string
+          description: Id del Owner obtenido desde el user data 
+      example:
+        _id: 64568057a7d77c180696ec3f
+        code: 9
+        title: test de docs
+        description: description test de docs
+        category: docsTest
+        price: 10
+        stock: 10
+        shops: [{Shop1.com},{shop2.com},{shop3.com}]
+        photos: [{photo1.png},{photo2.png},{photo3.png}]
+        owner: sad875sdf98asdf68
+  requestBodies:
+    addDesign:
+      type: object
+      properties:
+        code:
+          type: Number
+          description: Codigo personal del diseño
+        title:
+          type: string
+          description: Titulo del diseño
+        description:
+          type: string
+          description: descripcion del diseño
+        category:
+          type: string
+          description: categoria del diseño
+        price:
+          type: Number
+          description: precio diseño
+        stock:
+          type: Number
+          description: stock disponible del diseño
+        shops:
+          type: string
+          description: Links a las tiendas del diseño
+        photos:
+          type: string
+          description: links a imagenes
+        owner:
+          type: string
+          description: Id del Owner obtenido desde el user data 
+      example:
+        code: 9
+        title: test de docs
+        description: description test de docs
+        category: docsTest
+        price: 10
+        stock: 10
+        shops: [{Shop1.com},{shop2.com},{shop3.com}]
+        photos: [{photo1.png},{photo2.png},{photo3.png}]
+        owner: sad875sdf98asdf68
+    deleteDesign:
+      type: object
+      properties:
+        id: string
+        description: Id del diseño
+      example:
+        id: ysdafg43h5nb345345jh
